@@ -6,16 +6,38 @@
 //  Copyright (c) 2014 Swarthmore College. All rights reserved.
 //
 
+#import <DBChooser/DBChooser.h>
+
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
 
+@synthesize window = _window;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    ViewController *mainViewController = [[ViewController alloc] init];
+    
+    self.window.rootViewController = mainViewController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
-							
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url sourceApplication:(NSString *)source annotation:(id)annotation
+{
+    
+    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+        // This was a Chooser response and handleOpenURL automatically ran the
+        // completion block
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
