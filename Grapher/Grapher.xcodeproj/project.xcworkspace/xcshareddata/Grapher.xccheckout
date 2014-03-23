@@ -10,6 +10,8 @@
 	<string>Grapher</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>CCC53198-9A90-401C-AA99-29F3AD527DC5</key>
+		<string>https://github.com/core-plot/core-plot.git</string>
 		<key>D8B43BCB-7B9B-4513-BE94-6C8105545F22</key>
 		<string>https://github.com/JordanCheney/Grapher.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>Grapher/Grapher.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>CCC53198-9A90-401C-AA99-29F3AD527DC5</key>
+		<string>../../../../core-plot</string>
 		<key>D8B43BCB-7B9B-4513-BE94-6C8105545F22</key>
 		<string>../../..</string>
 	</dict>
@@ -28,6 +32,14 @@
 	<string>D8B43BCB-7B9B-4513-BE94-6C8105545F22</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CCC53198-9A90-401C-AA99-29F3AD527DC5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>core-plot</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
