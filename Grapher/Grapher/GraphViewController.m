@@ -7,6 +7,9 @@
 //
 
 #import "GraphViewController.h"
+#import "ScatterPlotGraph.h"
+#import "BarGraph.h"
+#import "PieGraph.h"
 
 @interface GraphViewController ()
 
@@ -14,208 +17,104 @@
 
 @implementation GraphViewController
 
-@synthesize hostView = _hostView;
-
 - (id)initWithData:(NSArray *)data
 {
     self = [super init];
     if (self){
         _data = data;
+        _graphType = @"scatter";
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSNumber *min = nil;
+    NSNumber *max = nil;
+    NSMutableArray *xIntercepts = [[NSMutableArray alloc] init];
+    NSMutableArray *yIntercepts = [[NSMutableArray alloc] init];
+    
+    for (NSArray *point in _data) {
+        NSNumber *x = [point objectAtIndex:0];
+        NSNumber *y = [point objectAtIndex:1];
+        
+        if (!min) { y = min; }
+        else if (y < min) { y = min;}
+        if (!max) { y = max; }
+        else if (y > max) { y = max; }
+        
+        if (x == 0) { [yIntercepts addObject:point]; }
+        if (y == 0) { [xIntercepts addObject:point]; }
+    }
+    
+    _graphInfo = [[NSArray alloc] initWithObjects:min, max, xIntercepts, yIntercepts, nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self initPlot];
-}
-
-#pragma mark - Chart behavior
--(void)initPlot
-{
-    [self configureHost];
-    [self configureGraph];
-    [self configurePlots];
-    [self configureAxes];
-}
-
--(void)configureHost
-{
-    self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.view.bounds];
-    self.hostView.allowPinchScaling = YES;
-    [self.view addSubview:self.hostView];
-}
-
--(void)configureGraph
-{
-    // 1 - Create the graph
-    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-    [graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
-    self.hostView.hostedGraph = graph;
+    UIView *graph = nil;
     
-    // 2 - Set graph title
-    NSString *title = @"Graph";
-    graph.title = title;
+    CGFloat width = self.view.bounds.size.width;
+    CGRect graphBounds = CGRectMake(10, 40, width-20, width-20);
     
-    // 3 - Create and set text style
-    CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor whiteColor];
-    titleStyle.fontName = @"Helvetica-Bold";
-    titleStyle.fontSize = 16.0f;
-    graph.titleTextStyle = titleStyle;
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(0.0f, 10.0f);
-    
-    // 4 - Set padding for plot area
-    [graph.plotAreaFrame setPaddingLeft:30.0f];
-    [graph.plotAreaFrame setPaddingBottom:30.0f];
-    
-    // 5 - Enable user interactions for plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-    plotSpace.allowsUserInteraction = YES;
-}
-
--(void)configurePlots
-{
-    CPTGraph *graph = self.hostView.hostedGraph;
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-    
-    //Create our plot
-    CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
-    plot.dataSource = self;
-    CPTColor *plotColor = [CPTColor redColor];
-    [graph addPlot:plot toPlotSpace:plotSpace];
-    
-    //Initialize the axes ranges
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObject:plot]];
-    CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-    [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
-    plotSpace.xRange = xRange;
-    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
-    plotSpace.yRange = yRange;
-    
-    //Configure line appearance
-    CPTMutableLineStyle *lineStyle = [plot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth = 2.5;
-    lineStyle.lineColor = plotColor;
-    plot.dataLineStyle = lineStyle;
-    CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
-    symbolLineStyle.lineColor = plotColor;
-    CPTPlotSymbol *symbol = [CPTPlotSymbol ellipsePlotSymbol];
-    symbol.fill = [CPTFill fillWithColor:plotColor];
-    symbol.lineStyle = symbolLineStyle;
-    symbol.size = CGSizeMake(6.0f, 6.0f);
-    plot.plotSymbol = symbol;
-}
-
--(void)configureAxes
-{
-    // 1 - Create styles
-    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-    axisTitleStyle.color = [CPTColor whiteColor];
-    axisTitleStyle.fontName = @"Helvetica-Bold";
-    axisTitleStyle.fontSize = 12.0f;
-    CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
-    axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [CPTColor whiteColor];
-    CPTMutableTextStyle *axisTextStyle = [[CPTMutableTextStyle alloc] init];
-    axisTextStyle.color = [CPTColor whiteColor];
-    axisTextStyle.fontName = @"Helvetica-Bold";
-    axisTextStyle.fontSize = 11.0f;
-    CPTMutableLineStyle *tickLineStyle = [CPTMutableLineStyle lineStyle];
-    tickLineStyle.lineColor = [CPTColor whiteColor];
-    tickLineStyle.lineWidth = 2.0f;
-    CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
-    tickLineStyle.lineColor = [CPTColor blackColor];
-    tickLineStyle.lineWidth = 1.0f;
-    
-    // 2 - Get axis set
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
-    
-    // 3 - Configure x-axis
-    CPTAxis *x = axisSet.xAxis;
-    x.title = @"X";
-    x.titleTextStyle = axisTitleStyle;
-    x.titleOffset = 15.0f;
-    x.axisLineStyle = axisLineStyle;
-    x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    x.labelTextStyle = axisTextStyle;
-    x.majorTickLineStyle = axisLineStyle;
-    x.majorTickLength = 4.0f;
-    x.tickDirection = CPTSignNegative;
-    CGFloat xCount = [_data count];
-    NSMutableSet *xLabels = [NSMutableSet setWithCapacity:xCount];
-    NSMutableSet *xLocations = [NSMutableSet setWithCapacity:xCount];
-    NSInteger i = [(NSNumber *)[[_data objectAtIndex:0] objectAtIndex:0] integerValue];
-    for (NSArray *point in _data) {
-        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%@", [point objectAtIndex:0]]  textStyle:x.labelTextStyle];
-        CGFloat location = i++;
-        label.tickLocation = CPTDecimalFromCGFloat(location);
-        label.offset = x.majorTickLength;
-        if (label) {
-            [xLabels addObject:label];
-            [xLocations addObject:[NSNumber numberWithFloat:location]];
-        }
+    if ([_graphType isEqualToString:@"scatter"]) {
+        graph = [[ScatterPlotGraph alloc] initWithFrame:graphBounds data:_data];
+    } else if ([_graphType isEqualToString:@"bar"]) {
+        graph = [[BarGraph alloc] initWithFrame:graphBounds data:_data];
+    } else if ([_graphType isEqualToString:@"pie"]) {
+        graph = [[PieGraph alloc] initWithFrame:graphBounds data:_data];
     }
-    x.axisLabels = xLabels;
-    x.majorTickLocations = xLocations;
     
-    // 4 - Configure y-axis
-    CPTAxis *y = axisSet.yAxis;
-    y.title = @"Y";
-    y.titleTextStyle = axisTitleStyle;
-    y.titleOffset = -40.0f;
-    y.axisLineStyle = axisLineStyle;
-    y.majorGridLineStyle = gridLineStyle;
-    y.labelingPolicy = CPTAxisLabelingPolicyNone;
-    y.labelTextStyle = axisTextStyle;
-    y.labelOffset = 16.0f;
-    y.majorTickLineStyle = axisLineStyle;
-    y.majorTickLength = 4.0f;
-    y.minorTickLength = 2.0f;
-    y.tickDirection = CPTSignPositive;
-    NSInteger majorIncrement = 100;
-    NSInteger minorIncrement = 50;
-    CGFloat yMax = 700.0f;  // should determine dynamically based on max price
-    NSMutableSet *yLabels = [NSMutableSet set];
-    NSMutableSet *yMajorLocations = [NSMutableSet set];
-    NSMutableSet *yMinorLocations = [NSMutableSet set];
-    for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
-        NSUInteger mod = j % majorIncrement;
-        if (mod == 0) {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-            NSDecimal location = CPTDecimalFromInteger(j);
-            label.tickLocation = location;
-            label.offset = -y.majorTickLength - y.labelOffset;
-            if (label) {
-                [yLabels addObject:label];
-            }
-            [yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
-        } else {
-            [yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
-        }
-    }
-    y.axisLabels = yLabels;    
-    y.majorTickLocations = yMajorLocations;
-    y.minorTickLocations = yMinorLocations;
+    NSString *inputSound  = [[NSBundle mainBundle] pathForResource:  @"song2" ofType: @"caf"];
+	NSURL *inUrl = [NSURL fileURLWithPath:inputSound];
+    
+    NSError *error = nil;
+	_mDiracAudioPlayer = [[DiracAudioPlayer alloc] initWithContentsOfURL:inUrl channels:1 error:&error];		// LE only supports 1 channel!
+	[_mDiracAudioPlayer setDelegate:self];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerSwipe:)];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [swipeRight setNumberOfTouchesRequired:2];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerSwipe:)];
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeLeft setNumberOfTouchesRequired:2];
+    
+    [self.view addGestureRecognizer:swipeRight];
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    [self.view addSubview:graph];
 }
 
-#pragma mark - CPTPlotDataSource methods
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-    return [_data count];
+- (void)diracPlayerDidFinishPlaying:(DiracAudioPlayerBase *)player successfully:(BOOL)flag
+{
+	NSLog(@"Dirac player instance (0x%lx) is done playing", (long)player);
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    switch (fieldEnum) {
-        case CPTScatterPlotFieldX:
-            return [[_data objectAtIndex:index] objectAtIndex:0];
-            break;
-        case CPTScatterPlotFieldY:
-            return [[_data objectAtIndex:index] objectAtIndex:1];
-            break;
+- (void)handleTwoFingerSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    NSLog(@"in swipe state");
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [_mDiracAudioPlayer stop];
+    } else {
+        CGPoint location = [recognizer locationInView:self.view];
+        CGFloat xValue = location.x;
+    
+        CGFloat xStep = self.view.bounds.size.width-40/[_data count];
+        CGFloat initX = 20;
+    
+        CGFloat xpoint = (xValue - initX)/xStep;
+    
+        if (xpoint < 0) { xpoint = 0; }
+        else if (xpoint > [_data count]) { xpoint = [_data count]; }
+        xpoint = floorf(xpoint);
+    
+        NSNumber *amplitude = [[_data objectAtIndex:xpoint] objectAtIndex:1];
+        NSNumber *max = [_graphInfo objectAtIndex:1];
+        [_mDiracAudioPlayer changePitch:powf(2.f, [amplitude intValue]/ [max floatValue])];
+        [_mDiracAudioPlayer play];
     }
-    return [NSDecimalNumber zero];
 }
+
 @end

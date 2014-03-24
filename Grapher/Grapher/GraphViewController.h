@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DiracAudioPlayer.h"
 
-@interface GraphViewController : UIViewController <CPTPlotDataSource>
+@interface GraphViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSArray *data;
-@property (strong, nonatomic) CPTGraphHostingView *hostView;
+@property (retain, nonatomic) NSString *graphType;
+@property (strong, nonatomic) NSArray *graphInfo;
+@property (strong, nonatomic) DiracAudioPlayer *mDiracAudioPlayer;
 
 - (id)initWithData:(NSArray *)data;
 

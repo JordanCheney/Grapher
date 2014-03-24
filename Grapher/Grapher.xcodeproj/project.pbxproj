@@ -7,12 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1632116D18DFEBBD00FA527C /* DropBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1632116C18DFEBBD00FA527C /* DropBoxController.m */; };
+		1632116F18DFF24C00FA527C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632116E18DFF24C00FA527C /* Accelerate.framework */; };
+		1632117118DFF25D00FA527C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632117018DFF25D00FA527C /* AudioToolbox.framework */; };
+		1632117318DFF26B00FA527C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632117218DFF26B00FA527C /* CoreAudio.framework */; };
+		1632117518DFF27A00FA527C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632117418DFF27A00FA527C /* AVFoundation.framework */; };
+		1632117718DFF28300FA527C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632117618DFF28300FA527C /* CoreMedia.framework */; };
+		1632117918DFF28A00FA527C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632117818DFF28A00FA527C /* MediaPlayer.framework */; };
+		1632119518DFF2A200FA527C /*  DiracAudioPlayer ReadMe.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1632117C18DFF2A200FA527C /*  DiracAudioPlayer ReadMe.rtf */; };
+		1632119618DFF2A200FA527C /* DiracAudioPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632117E18DFF2A200FA527C /* DiracAudioPlayer.mm */; };
+		1632119718DFF2A200FA527C /* DiracAudioPlayerBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632118018DFF2A200FA527C /* DiracAudioPlayerBase.mm */; };
+		1632119818DFF2A200FA527C /* DiracFxAudioPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632118218DFF2A200FA527C /* DiracFxAudioPlayer.mm */; };
+		1632119918DFF2A200FA527C /* EAFRead.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632118518DFF2A200FA527C /* EAFRead.mm */; };
+		1632119A18DFF2A200FA527C /* EAFWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632118718DFF2A200FA527C /* EAFWrite.mm */; };
+		1632119B18DFF2A200FA527C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1632118918DFF2A200FA527C /* MainWindow.xib */; };
+		1632119C18DFF2A200FA527C /* song.aif in Resources */ = {isa = PBXBuildFile; fileRef = 1632118A18DFF2A200FA527C /* song.aif */; };
+		1632119D18DFF2A200FA527C /* song2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1632118B18DFF2A200FA527C /* song2.caf */; };
+		1632119E18DFF2A200FA527C /* test.aif in Resources */ = {isa = PBXBuildFile; fileRef = 1632118C18DFF2A200FA527C /* test.aif */; };
+		1632119F18DFF2A200FA527C /* voice.aif in Resources */ = {isa = PBXBuildFile; fileRef = 1632118D18DFF2A200FA527C /* voice.aif */; };
+		163211A018DFF2A200FA527C /* libDIRAC_iOS-fat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632119018DFF2A200FA527C /* libDIRAC_iOS-fat.a */; };
+		163211A118DFF2A200FA527C /* libDIRAC_iOS4-fat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1632119118DFF2A200FA527C /* libDIRAC_iOS4-fat.a */; };
+		163211A218DFF2A200FA527C /* Utilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1632119418DFF2A200FA527C /* Utilities.mm */; };
 		169917F018DD7B380045F367 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169917EF18DD7B380045F367 /* DBChooser.framework */; };
 		169917F518DD81830045F367 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 169917F418DD81830045F367 /* CHCSVParser.m */; };
 		169917FB18DEB1930045F367 /* TestParabola.csv in Resources */ = {isa = PBXBuildFile; fileRef = 169917FA18DEB1920045F367 /* TestParabola.csv */; };
 		169917FE18DEB5080045F367 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 169917FD18DEB5080045F367 /* GraphViewController.m */; };
 		1699185A18DECA2B0045F367 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1699185918DECA2B0045F367 /* libCorePlot-CocoaTouch.a */; };
 		1699185E18DECB700045F367 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1699185D18DECB700045F367 /* QuartzCore.framework */; };
+		169918A518DFCF770045F367 /* ScatterPlotGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 169918A418DFCF770045F367 /* ScatterPlotGraph.m */; };
+		169918A818DFD4330045F367 /* BarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 169918A718DFD4330045F367 /* BarGraph.m */; };
+		169918AB18DFD4450045F367 /* PieGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 169918AA18DFD4450045F367 /* PieGraph.m */; };
 		16C629D918DBE99A0068C306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C629D818DBE99A0068C306 /* Foundation.framework */; };
 		16C629DB18DBE99A0068C306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C629DA18DBE99A0068C306 /* CoreGraphics.framework */; };
 		16C629DD18DBE99A0068C306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C629DC18DBE99A0068C306 /* UIKit.framework */; };
@@ -20,7 +44,6 @@
 		16C629E518DBE99A0068C306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C629E418DBE99A0068C306 /* main.m */; };
 		16C629E918DBE99A0068C306 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C629E818DBE99A0068C306 /* AppDelegate.m */; };
 		16C629EC18DBE99A0068C306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16C629EA18DBE99A0068C306 /* Main.storyboard */; };
-		16C629EF18DBE99B0068C306 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C629EE18DBE99B0068C306 /* ViewController.m */; };
 		16C629F118DBE99B0068C306 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16C629F018DBE99B0068C306 /* Images.xcassets */; };
 		16C629F818DBE99B0068C306 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C629F718DBE99B0068C306 /* XCTest.framework */; };
 		16C629F918DBE99B0068C306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C629D818DBE99A0068C306 /* Foundation.framework */; };
@@ -40,6 +63,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1632116B18DFEBBD00FA527C /* DropBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropBoxController.h; sourceTree = "<group>"; };
+		1632116C18DFEBBD00FA527C /* DropBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropBoxController.m; sourceTree = "<group>"; };
+		1632116E18DFF24C00FA527C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		1632117018DFF25D00FA527C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1632117218DFF26B00FA527C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		1632117418DFF27A00FA527C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1632117618DFF28300FA527C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		1632117818DFF28A00FA527C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		1632117C18DFF2A200FA527C /*  DiracAudioPlayer ReadMe.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = " DiracAudioPlayer ReadMe.rtf"; sourceTree = "<group>"; };
+		1632117D18DFF2A200FA527C /* DiracAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiracAudioPlayer.h; sourceTree = "<group>"; };
+		1632117E18DFF2A200FA527C /* DiracAudioPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DiracAudioPlayer.mm; sourceTree = "<group>"; };
+		1632117F18DFF2A200FA527C /* DiracAudioPlayerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiracAudioPlayerBase.h; sourceTree = "<group>"; };
+		1632118018DFF2A200FA527C /* DiracAudioPlayerBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DiracAudioPlayerBase.mm; sourceTree = "<group>"; };
+		1632118118DFF2A200FA527C /* DiracFxAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiracFxAudioPlayer.h; sourceTree = "<group>"; };
+		1632118218DFF2A200FA527C /* DiracFxAudioPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DiracFxAudioPlayer.mm; sourceTree = "<group>"; };
+		1632118418DFF2A200FA527C /* EAFRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAFRead.h; sourceTree = "<group>"; };
+		1632118518DFF2A200FA527C /* EAFRead.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAFRead.mm; sourceTree = "<group>"; };
+		1632118618DFF2A200FA527C /* EAFWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAFWrite.h; sourceTree = "<group>"; };
+		1632118718DFF2A200FA527C /* EAFWrite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAFWrite.mm; sourceTree = "<group>"; };
+		1632118918DFF2A200FA527C /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		1632118A18DFF2A200FA527C /* song.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = song.aif; sourceTree = "<group>"; };
+		1632118B18DFF2A200FA527C /* song2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = song2.caf; sourceTree = "<group>"; };
+		1632118C18DFF2A200FA527C /* test.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.aif; sourceTree = "<group>"; };
+		1632118D18DFF2A200FA527C /* voice.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = voice.aif; sourceTree = "<group>"; };
+		1632118F18DFF2A200FA527C /* Dirac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dirac.h; sourceTree = "<group>"; };
+		1632119018DFF2A200FA527C /* libDIRAC_iOS-fat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libDIRAC_iOS-fat.a"; sourceTree = "<group>"; };
+		1632119118DFF2A200FA527C /* libDIRAC_iOS4-fat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libDIRAC_iOS4-fat.a"; sourceTree = "<group>"; };
+		1632119318DFF2A200FA527C /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1632119418DFF2A200FA527C /* Utilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Utilities.mm; sourceTree = "<group>"; };
 		169917EF18DD7B380045F367 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBChooser.framework; path = Resources/DBChooser.framework; sourceTree = "<group>"; };
 		169917F118DD7B560045F367 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DBChooser.bundle; path = Resources/DBChooser.bundle; sourceTree = "<group>"; };
 		169917F318DD81830045F367 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
@@ -127,6 +179,12 @@
 		1699185818DECA2B0045F367 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		1699185918DECA2B0045F367 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		1699185D18DECB700045F367 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		169918A318DFCF770045F367 /* ScatterPlotGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScatterPlotGraph.h; sourceTree = "<group>"; };
+		169918A418DFCF770045F367 /* ScatterPlotGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScatterPlotGraph.m; sourceTree = "<group>"; };
+		169918A618DFD4330045F367 /* BarGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarGraph.h; sourceTree = "<group>"; };
+		169918A718DFD4330045F367 /* BarGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarGraph.m; sourceTree = "<group>"; };
+		169918A918DFD4450045F367 /* PieGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieGraph.h; sourceTree = "<group>"; };
+		169918AA18DFD4450045F367 /* PieGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieGraph.m; sourceTree = "<group>"; };
 		16C629D518DBE99A0068C306 /* Grapher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16C629D818DBE99A0068C306 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		16C629DA18DBE99A0068C306 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -138,8 +196,6 @@
 		16C629E718DBE99A0068C306 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16C629E818DBE99A0068C306 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		16C629EB18DBE99A0068C306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		16C629ED18DBE99A0068C306 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		16C629EE18DBE99B0068C306 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		16C629F018DBE99B0068C306 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		16C629F618DBE99B0068C306 /* GrapherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16C629F718DBE99B0068C306 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -153,10 +209,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1632117918DFF28A00FA527C /* MediaPlayer.framework in Frameworks */,
+				1632117718DFF28300FA527C /* CoreMedia.framework in Frameworks */,
+				1632117518DFF27A00FA527C /* AVFoundation.framework in Frameworks */,
+				1632117318DFF26B00FA527C /* CoreAudio.framework in Frameworks */,
+				1632117118DFF25D00FA527C /* AudioToolbox.framework in Frameworks */,
+				1632116F18DFF24C00FA527C /* Accelerate.framework in Frameworks */,
 				1699185E18DECB700045F367 /* QuartzCore.framework in Frameworks */,
 				169917F018DD7B380045F367 /* DBChooser.framework in Frameworks */,
 				16C629DB18DBE99A0068C306 /* CoreGraphics.framework in Frameworks */,
 				16C629DD18DBE99A0068C306 /* UIKit.framework in Frameworks */,
+				163211A118DFF2A200FA527C /* libDIRAC_iOS4-fat.a in Frameworks */,
+				163211A018DFF2A200FA527C /* libDIRAC_iOS-fat.a in Frameworks */,
 				16C629D918DBE99A0068C306 /* Foundation.framework in Frameworks */,
 				1699185A18DECA2B0045F367 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
@@ -175,6 +239,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1632117A18DFF2A200FA527C /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				1632117B18DFF2A200FA527C /* DiracAudioPlayer */,
+				1632118318DFF2A200FA527C /* ExtAudioFile */,
+				1632118818DFF2A200FA527C /* res */,
+				1632118E18DFF2A200FA527C /* src */,
+				1632119218DFF2A200FA527C /* util */,
+			);
+			name = Audio;
+			path = "../Common Files";
+			sourceTree = "<group>";
+		};
+		1632117B18DFF2A200FA527C /* DiracAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				1632117C18DFF2A200FA527C /*  DiracAudioPlayer ReadMe.rtf */,
+				1632117D18DFF2A200FA527C /* DiracAudioPlayer.h */,
+				1632117E18DFF2A200FA527C /* DiracAudioPlayer.mm */,
+				1632117F18DFF2A200FA527C /* DiracAudioPlayerBase.h */,
+				1632118018DFF2A200FA527C /* DiracAudioPlayerBase.mm */,
+				1632118118DFF2A200FA527C /* DiracFxAudioPlayer.h */,
+				1632118218DFF2A200FA527C /* DiracFxAudioPlayer.mm */,
+			);
+			path = DiracAudioPlayer;
+			sourceTree = "<group>";
+		};
+		1632118318DFF2A200FA527C /* ExtAudioFile */ = {
+			isa = PBXGroup;
+			children = (
+				1632118418DFF2A200FA527C /* EAFRead.h */,
+				1632118518DFF2A200FA527C /* EAFRead.mm */,
+				1632118618DFF2A200FA527C /* EAFWrite.h */,
+				1632118718DFF2A200FA527C /* EAFWrite.mm */,
+			);
+			path = ExtAudioFile;
+			sourceTree = "<group>";
+		};
+		1632118818DFF2A200FA527C /* res */ = {
+			isa = PBXGroup;
+			children = (
+				1632118918DFF2A200FA527C /* MainWindow.xib */,
+				1632118A18DFF2A200FA527C /* song.aif */,
+				1632118B18DFF2A200FA527C /* song2.caf */,
+				1632118C18DFF2A200FA527C /* test.aif */,
+				1632118D18DFF2A200FA527C /* voice.aif */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		1632118E18DFF2A200FA527C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1632118F18DFF2A200FA527C /* Dirac.h */,
+				1632119018DFF2A200FA527C /* libDIRAC_iOS-fat.a */,
+				1632119118DFF2A200FA527C /* libDIRAC_iOS4-fat.a */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1632119218DFF2A200FA527C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				1632119318DFF2A200FA527C /* Utilities.h */,
+				1632119418DFF2A200FA527C /* Utilities.mm */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
 		169917F618DD81890045F367 /* csvParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +427,19 @@
 			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
+		169918A218DFCEB30045F367 /* 2d_graphs */ = {
+			isa = PBXGroup;
+			children = (
+				169918A318DFCF770045F367 /* ScatterPlotGraph.h */,
+				169918A418DFCF770045F367 /* ScatterPlotGraph.m */,
+				169918A618DFD4330045F367 /* BarGraph.h */,
+				169918A718DFD4330045F367 /* BarGraph.m */,
+				169918A918DFD4450045F367 /* PieGraph.h */,
+				169918AA18DFD4450045F367 /* PieGraph.m */,
+			);
+			name = 2d_graphs;
+			sourceTree = "<group>";
+		};
 		16C629CC18DBE99A0068C306 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +462,12 @@
 		16C629D718DBE99A0068C306 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1632117818DFF28A00FA527C /* MediaPlayer.framework */,
+				1632117618DFF28300FA527C /* CoreMedia.framework */,
+				1632117418DFF27A00FA527C /* AVFoundation.framework */,
+				1632117218DFF26B00FA527C /* CoreAudio.framework */,
+				1632117018DFF25D00FA527C /* AudioToolbox.framework */,
+				1632116E18DFF24C00FA527C /* Accelerate.framework */,
 				1699185D18DECB700045F367 /* QuartzCore.framework */,
 				169917F118DD7B560045F367 /* DBChooser.bundle */,
 				169917EF18DD7B380045F367 /* DBChooser.framework */,
@@ -333,10 +485,12 @@
 				16C629E718DBE99A0068C306 /* AppDelegate.h */,
 				16C629E818DBE99A0068C306 /* AppDelegate.m */,
 				16C62A0D18DBE9B30068C306 /* Storyboard */,
-				16C629ED18DBE99A0068C306 /* ViewController.h */,
-				16C629EE18DBE99B0068C306 /* ViewController.m */,
+				1632116B18DFEBBD00FA527C /* DropBoxController.h */,
+				1632116C18DFEBBD00FA527C /* DropBoxController.m */,
 				169917FC18DEB5080045F367 /* GraphViewController.h */,
 				169917FD18DEB5080045F367 /* GraphViewController.m */,
+				169918A218DFCEB30045F367 /* 2d_graphs */,
+				1632117A18DFF2A200FA527C /* Audio */,
 				169917F618DD81890045F367 /* csvParser */,
 				169917FF18DEC5F40045F367 /* Plotting */,
 				16C629F018DBE99B0068C306 /* Images.xcassets */,
@@ -459,10 +613,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1632119518DFF2A200FA527C /*  DiracAudioPlayer ReadMe.rtf in Resources */,
 				169917FB18DEB1930045F367 /* TestParabola.csv in Resources */,
+				1632119D18DFF2A200FA527C /* song2.caf in Resources */,
+				1632119B18DFF2A200FA527C /* MainWindow.xib in Resources */,
+				1632119E18DFF2A200FA527C /* test.aif in Resources */,
 				16C629F118DBE99B0068C306 /* Images.xcassets in Resources */,
+				1632119C18DFF2A200FA527C /* song.aif in Resources */,
 				16C629E318DBE99A0068C306 /* InfoPlist.strings in Resources */,
 				16C629EC18DBE99A0068C306 /* Main.storyboard in Resources */,
+				1632119F18DFF2A200FA527C /* voice.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,11 +641,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16C629EF18DBE99B0068C306 /* ViewController.m in Sources */,
+				169918A818DFD4330045F367 /* BarGraph.m in Sources */,
+				1632119818DFF2A200FA527C /* DiracFxAudioPlayer.mm in Sources */,
+				1632119918DFF2A200FA527C /* EAFRead.mm in Sources */,
 				16C629E918DBE99A0068C306 /* AppDelegate.m in Sources */,
+				1632119718DFF2A200FA527C /* DiracAudioPlayerBase.mm in Sources */,
+				1632119618DFF2A200FA527C /* DiracAudioPlayer.mm in Sources */,
 				16C629E518DBE99A0068C306 /* main.m in Sources */,
 				169917FE18DEB5080045F367 /* GraphViewController.m in Sources */,
+				1632116D18DFEBBD00FA527C /* DropBoxController.m in Sources */,
+				169918AB18DFD4450045F367 /* PieGraph.m in Sources */,
+				163211A218DFF2A200FA527C /* Utilities.mm in Sources */,
+				169918A518DFCF770045F367 /* ScatterPlotGraph.m in Sources */,
 				169917F518DD81830045F367 /* CHCSVParser.m in Sources */,
+				1632119A18DFF2A200FA527C /* EAFWrite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,9 +792,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Grapher",
+					"$(PROJECT_DIR)/Common",
+					Files/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -646,9 +818,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Grapher",
+					"$(PROJECT_DIR)/Common",
+					Files/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
