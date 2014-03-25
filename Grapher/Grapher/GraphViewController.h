@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DiracAudioPlayer.h"
+
+@class ToneEmitter;
 
 @interface GraphViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSArray *data;
 @property (retain, nonatomic) NSString *graphType;
-@property (strong, nonatomic) NSArray *graphInfo;
-@property (strong, nonatomic) DiracAudioPlayer *mDiracAudioPlayer;
+@property (retain, nonatomic) NSArray *graphInfo;
+@property (strong, nonatomic) ToneEmitter *emitter;
 
 - (id)initWithData:(NSArray *)data;
 

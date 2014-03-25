@@ -23,7 +23,7 @@
 }
 
 #pragma mark - Chart behavior
--(void)initPlot
+- (void)initPlot
 {
     [self configureHost];
     [self configureGraph];
@@ -31,14 +31,14 @@
     [self configureAxes];
 }
 
--(void)configureHost
+- (void)configureHost
 {
     self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.bounds];
     self.hostView.allowPinchScaling = YES;
     [self addSubview:self.hostView];
 }
 
--(void)configureGraph
+- (void)configureGraph
 {
     // 1 - Create the graph
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
@@ -63,7 +63,7 @@
     plotSpace.allowsUserInteraction = YES;
 }
 
--(void)configurePlots
+- (void)configurePlots
 {
     CPTGraph *graph = self.hostView.hostedGraph;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
@@ -97,7 +97,7 @@
     plot.plotSymbol = symbol;
 }
 
--(void)configureAxes
+- (void)configureAxes
 {
     // 1 - Create styles
     CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
@@ -190,11 +190,11 @@
 }
 
 #pragma mark - CPTPlotDataSource methods
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
     return [_data count];
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+- (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     switch (fieldEnum) {
         case CPTScatterPlotFieldX:
             return [[_data objectAtIndex:index] objectAtIndex:0];

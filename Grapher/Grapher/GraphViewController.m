@@ -11,6 +11,8 @@
 #import "BarGraph.h"
 #import "PieGraph.h"
 
+#import "ToneEmitter.h"
+
 @interface GraphViewController ()
 
 @end
@@ -23,31 +25,9 @@
     if (self){
         _data = data;
         _graphType = @"scatter";
+        _graphInfo = [self getGraphInfo];
     }
     return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSNumber *min = nil;
-    NSNumber *max = nil;
-    NSMutableArray *xIntercepts = [[NSMutableArray alloc] init];
-    NSMutableArray *yIntercepts = [[NSMutableArray alloc] init];
-    
-    for (NSArray *point in _data) {
-        NSNumber *x = [point objectAtIndex:0];
-        NSNumber *y = [point objectAtIndex:1];
-        
-        if (!min) { y = min; }
-        else if (y < min) { y = min;}
-        if (!max) { y = max; }
-        else if (y > max) { y = max; }
-        
-        if (x == 0) { [yIntercepts addObject:point]; }
-        if (y == 0) { [xIntercepts addObject:point]; }
-    }
-    
-    _graphInfo = [[NSArray alloc] initWithObjects:min, max, xIntercepts, yIntercepts, nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -66,54 +46,67 @@
         graph = [[PieGraph alloc] initWithFrame:graphBounds data:_data];
     }
     
-    NSString *inputSound  = [[NSBundle mainBundle] pathForResource:  @"song2" ofType: @"caf"];
-	NSURL *inUrl = [NSURL fileURLWithPath:inputSound];
+    //Init audio player
+    _emitter = [[ToneEmitter alloc] initWithFrequency:200.0f];
     
-    NSError *error = nil;
-	_mDiracAudioPlayer = [[DiracAudioPlayer alloc] initWithContentsOfURL:inUrl channels:1 error:&error];		// LE only supports 1 channel!
-	[_mDiracAudioPlayer setDelegate:self];
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerSwipe:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [swipeRight setNumberOfTouchesRequired:2];
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerSwipe:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [swipeLeft setNumberOfTouchesRequired:2];
-    
-    [self.view addGestureRecognizer:swipeRight];
-    [self.view addGestureRecognizer:swipeLeft];
-    
+    [self initGestureControl];
     [self.view addSubview:graph];
 }
 
-- (void)diracPlayerDidFinishPlaying:(DiracAudioPlayerBase *)player successfully:(BOOL)flag
+- (NSArray *)getGraphInfo
 {
-	NSLog(@"Dirac player instance (0x%lx) is done playing", (long)player);
+    NSNumber *max = nil;
+    NSNumber *min = nil;
+    for (NSArray *point in _data) {
+        NSNumber *y = [point objectAtIndex:1];
+        if (!max || y > max) { max = y; }
+        else if (!min || y < min) { min = y; }
+    }
+    
+    return [[NSArray alloc] initWithObjects:min, max, nil];
 }
 
-- (void)handleTwoFingerSwipe:(UISwipeGestureRecognizer *)recognizer
+#pragma mark - Gesture behavior
+- (void)initGestureControl
 {
-    NSLog(@"in swipe state");
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [_mDiracAudioPlayer stop];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    //[pan setMaximumNumberOfTouches:2];
+    //[pan setMinimumNumberOfTouches:2];
+    
+    [self.view addGestureRecognizer:pan];
+}
+
+- (CGFloat)frequencyAtLocation:(CGPoint)point {
+    if ([_graphType isEqualToString:@"scatter"]) {
+        CGFloat center = self.view.bounds.size.width/2;
+        CGFloat offset = point.x - center;
+        CGFloat graphWidth = (self.view.bounds.size.width - 40)/1.1;
+        
+        CGFloat pointOffset = graphWidth/[_data count];
+        CGFloat roughPointVal = offset/pointOffset;
+        NSInteger pointVal = floorf(roughPointVal);
+
+        pointVal = [_data count]/2 + pointVal;
+        
+        if (pointVal < 0) { pointVal = 0; }
+        else if (pointVal > [_data count] - 1) { pointVal = [_data count] - 1; }
+        
+        return ((([[[_data objectAtIndex:pointVal] objectAtIndex:1] floatValue]/[[_graphInfo objectAtIndex:1] floatValue]) * 1300) + 200);
+    }
+    return 0.0f;
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer
+{
+    //frequency currently normalized between 200 and 1500
+    CGFloat frequency = [self frequencyAtLocation:[recognizer locationInView:self.view]];
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [_emitter setFrequency:frequency];
+        [_emitter play];
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [_emitter stop];
     } else {
-        CGPoint location = [recognizer locationInView:self.view];
-        CGFloat xValue = location.x;
-    
-        CGFloat xStep = self.view.bounds.size.width-40/[_data count];
-        CGFloat initX = 20;
-    
-        CGFloat xpoint = (xValue - initX)/xStep;
-    
-        if (xpoint < 0) { xpoint = 0; }
-        else if (xpoint > [_data count]) { xpoint = [_data count]; }
-        xpoint = floorf(xpoint);
-    
-        NSNumber *amplitude = [[_data objectAtIndex:xpoint] objectAtIndex:1];
-        NSNumber *max = [_graphInfo objectAtIndex:1];
-        [_mDiracAudioPlayer changePitch:powf(2.f, [amplitude intValue]/ [max floatValue])];
-        [_mDiracAudioPlayer play];
+        [_emitter setFrequency:frequency];
     }
 }
 
