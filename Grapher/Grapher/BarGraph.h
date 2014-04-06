@@ -15,5 +15,4 @@
 
 - (id)initWithFrame:(CGRect)aRect data:(NSArray *)data;
 
-
 @end

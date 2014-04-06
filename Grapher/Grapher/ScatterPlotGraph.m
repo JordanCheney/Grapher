@@ -17,6 +17,8 @@
     self = [super initWithFrame:aRect];
     if (self) {
         _data = data;
+        _circleView = [[UIView alloc] initWithFrame:self.bounds];
+        [self addSubview:_circleView];
         [self initPlot];
     }
     return self;
@@ -80,7 +82,7 @@
     [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
     plotSpace.xRange = xRange;
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
     plotSpace.yRange = yRange;
     
     //Configure line appearance
@@ -172,7 +174,7 @@
     for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
         NSUInteger mod = j % majorIncrement;
         if (mod == 0) {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%li", (long)j] textStyle:y.labelTextStyle];
             NSDecimal location = CPTDecimalFromInteger(j);
             label.tickLocation = location;
             label.offset = -y.majorTickLength - y.labelOffset;
@@ -187,6 +189,27 @@
     y.axisLabels = yLabels;
     y.majorTickLocations = yMajorLocations;
     y.minorTickLocations = yMinorLocations;
+}
+
+#pragma mark - set Text Attributes
+- (void)setGraphTitle:(NSString *)title
+{
+    CPTGraph *graph = self.hostView.hostedGraph;
+    graph.title = title;
+}
+
+- (void)setXAxisLabel:(NSString *)label
+{
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
+    CPTAxis *x = axisSet.xAxis;
+    x.title = label;
+}
+
+- (void)setYAxisLabel:(NSString *)label
+{
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
+    CPTAxis *y = axisSet.yAxis;
+    y.title = label;
 }
 
 #pragma mark - CPTPlotDataSource methods
@@ -206,4 +229,37 @@
     return [NSDecimalNumber zero];
 }
 
+#pragma mark - sudo delegate
+- (void)selectPointAtIndex:(NSUInteger)index
+{
+    CGFloat pointRadius = 5.0f;
+    
+    //Remove old circles (check on this seems kind of hacky to just set to nil)
+    CAShapeLayer *circle = nil;
+    if (![_circleView.layer.sublayers count]) {
+        circle = [CAShapeLayer layer];
+        // Make a circular shape
+        circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*pointRadius, 2.0*pointRadius)
+                                                 cornerRadius:pointRadius].CGPath;
+        circle.fillColor = [UIColor blackColor].CGColor;
+        circle.strokeColor = [UIColor blackColor].CGColor;
+        circle.lineWidth = 1;
+        
+        [_circleView.layer addSublayer:circle];
+    }
+    
+    circle = [_circleView.layer.sublayers objectAtIndex:1];
+    
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.hostView.hostedGraph.defaultPlotSpace;
+    CGFloat graphXRange = plotSpace.xRange.lengthDouble/1.1;
+    CGFloat pointOffset = graphXRange/[_data count];
+    CGFloat graphOffset = (self.bounds.size.width - graphXRange)/2;
+
+    CGFloat location = graphOffset + index*pointOffset + pointRadius;
+    
+    circle.position = CGPointMake(location, 50);
+    
+    [self bringSubviewToFront:_circleView];
+    [_circleView setNeedsDisplay];
+}
 @end

@@ -10,6 +10,9 @@
 
 @implementation BarGraph
 
+CGFloat const CPDBarWidth = 0.25f;
+CGFloat const CPDBarInitialX = 0.25f;
+
 @synthesize hostView = _hostView;
 
 - (id)initWithFrame:(CGRect)aRect data:(NSArray *)data
@@ -42,25 +45,28 @@
 {
     // 1 - Create the graph
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-    [graph applyTheme:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
+    graph.plotAreaFrame.masksToBorder = NO;
     self.hostView.hostedGraph = graph;
     
-    // 2 - Set graph title
-    NSString *title = @"Graph";
-    graph.title = title;
+    // 2 - Configure the graph
+    [graph applyTheme:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
+    graph.paddingBottom = 30.0f;
+    graph.paddingLeft  = 30.0f;
+    graph.paddingTop    = -1.0f;
+    graph.paddingRight  = -5.0f;
     
-    // 3 - Create and set text style
+    // 3 - Set up styles
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor blackColor];
+    titleStyle.color = [CPTColor whiteColor];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 16.0f;
+    
+    // 4 - Set up title
+    NSString *title = @"Graph";
+    graph.title = title;
     graph.titleTextStyle = titleStyle;
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(0.0f, 20.0f);
-    
-    // 4 - Set padding for plot area
-    [graph.plotAreaFrame setPaddingLeft:30.0f];
-    [graph.plotAreaFrame setPaddingBottom:30.0f];
+    graph.titleDisplacement = CGPointMake(0.0f, -16.0f);
     
     // 5 - Enable user interactions for plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;

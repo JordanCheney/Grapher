@@ -12,7 +12,12 @@
 
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) CPTGraphHostingView *hostView;
-
+@property (strong, nonatomic) UIView *circleView;
 - (id)initWithFrame:(CGRect)aRect data:(NSArray *)data;
+
+- (void)setGraphTitle:(NSString *)title;
+- (void)setXAxisLabel:(NSString *)label;
+- (void)setYAxisLabel:(NSString *)label;
+- (void)selectPointAtIndex:(NSUInteger)index;
 
 @end

@@ -6,12 +6,13 @@
 //  Copyright (c) 2014 Swarthmore College. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
+
 #import "GraphViewController.h"
+#import "VoiceOverHelper.h"
 #import "ScatterPlotGraph.h"
 #import "BarGraph.h"
 #import "PieGraph.h"
-
-#import "ToneEmitter.h"
 
 @interface GraphViewController ()
 
@@ -25,7 +26,6 @@
     if (self){
         _data = data;
         _graphType = @"scatter";
-        _graphInfo = [self getGraphInfo];
     }
     return self;
 }
@@ -33,11 +33,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     UIView *graph = nil;
     
+    //Create a visual graph within the larger graph controller, this currently does not adjust for different device orientations
+    //and needs to be fixed
     CGFloat width = self.view.bounds.size.width;
     CGRect graphBounds = CGRectMake(10, 40, width-20, width-20);
     
+    //Create a graph based on the graph type. Currently the default is scatter
     if ([_graphType isEqualToString:@"scatter"]) {
         graph = [[ScatterPlotGraph alloc] initWithFrame:graphBounds data:_data];
     } else if ([_graphType isEqualToString:@"bar"]) {
@@ -46,67 +50,41 @@
         graph = [[PieGraph alloc] initWithFrame:graphBounds data:_data];
     }
     
-    //Init audio player
-    _emitter = [[ToneEmitter alloc] initWithFrequency:200.0f];
-    
-    [self initGestureControl];
+    //Add the graph subview to the ViewController
+    [graph setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:graph];
-}
-
-- (NSArray *)getGraphInfo
-{
-    NSNumber *max = nil;
-    NSNumber *min = nil;
-    for (NSArray *point in _data) {
-        NSNumber *y = [point objectAtIndex:1];
-        if (!max || y > max) { max = y; }
-        else if (!min || y < min) { min = y; }
-    }
     
-    return [[NSArray alloc] initWithObjects:min, max, nil];
+    BOOL voiceOver = UIAccessibilityIsVoiceOverRunning();
+    if (voiceOver) {
+        VoiceOverHelper *vHelper = [[VoiceOverHelper alloc] initWithFrame:self.view.bounds Data:_data];
+        vHelper.accessibilityTraits = vHelper.accessibilityTraits | UIAccessibilityTraitAdjustable | UIAccessibilityTraitPlaysSound;
+        [vHelper setAccessibilityHint:@"Graph"];
+        [vHelper setDisplayGraph:graph];
+        [self.view addSubview:vHelper];
+    }
+    else {
+        [self initGestureControl];
+    }
 }
 
 #pragma mark - Gesture behavior
+//Non VoiceOver gesture initilization
 - (void)initGestureControl
 {
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    //[pan setMaximumNumberOfTouches:2];
-    //[pan setMinimumNumberOfTouches:2];
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipe setNumberOfTouchesRequired:3];
+    [swipe setDirection:(UISwipeGestureRecognizerDirectionLeft || UISwipeGestureRecognizerDirectionRight)];
     
-    [self.view addGestureRecognizer:pan];
+    [self.view addGestureRecognizer:swipe];
 }
 
-- (CGFloat)frequencyAtLocation:(CGPoint)point {
-    if ([_graphType isEqualToString:@"scatter"]) {
-        CGFloat center = self.view.bounds.size.width/2;
-        CGFloat offset = point.x - center;
-        CGFloat graphWidth = (self.view.bounds.size.width - 40)/1.1;
-        
-        CGFloat pointOffset = graphWidth/[_data count];
-        CGFloat roughPointVal = offset/pointOffset;
-        NSInteger pointVal = floorf(roughPointVal);
-
-        pointVal = [_data count]/2 + pointVal;
-        
-        if (pointVal < 0) { pointVal = 0; }
-        else if (pointVal > [_data count] - 1) { pointVal = [_data count] - 1; }
-        
-        return ((([[[_data objectAtIndex:pointVal] objectAtIndex:1] floatValue]/[[_graphInfo objectAtIndex:1] floatValue]) * 1300) + 200);
-    }
-    return 0.0f;
-}
-
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer
+- (void)handleSwipe:(UISwipeGestureRecognizer *)recognizer
 {
-    //frequency currently normalized between 200 and 1500
-    CGFloat frequency = [self frequencyAtLocation:[recognizer locationInView:self.view]];
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [_emitter setFrequency:frequency];
-        [_emitter play];
-    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [_emitter stop];
-    } else {
-        [_emitter setFrequency:frequency];
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        
     }
 }
 

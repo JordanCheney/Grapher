@@ -10,6 +10,4 @@
 
 @interface DropBoxController : UIViewController
 
-@property (retain, nonatomic) NSArray *data;
-
 @end
